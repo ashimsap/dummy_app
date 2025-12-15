@@ -38,7 +38,7 @@ class HomeScreen extends ConsumerWidget {
 
 
     return Scaffold(
-      appBar: AppBar(title: Text('Home')),
+      appBar: AppBar(title: Text('Satate Testing with Riverpod')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -46,7 +46,7 @@ class HomeScreen extends ConsumerWidget {
             Text('You are logged in!'),
             SizedBox(height: 20),
             Text(
-              'Session expires in: ${authState.remainingSeconds} seconds',
+              'Session will expire in: ${authState.remainingSeconds} seconds',
               style: TextStyle(fontSize: 18),
             ),
           ],
