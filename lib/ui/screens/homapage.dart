@@ -38,7 +38,7 @@ class HomeScreen extends ConsumerWidget {
 
 
     return Scaffold(
-      appBar: AppBar(title: Text('Satate Testing with Riverpod')),
+      appBar: AppBar(title: Text('State Testing with Riverpod'), centerTitle: true,),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
