@@ -1,19 +1,16 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'api_model.dart';
 import 'api_service.dart';
 
-class JokeState {
-  final Joke? joke;
-  final bool isLoading;
+part 'joke_provider.freezed.dart';
 
-  JokeState({this.joke, this.isLoading = false});
-
-  JokeState copyWith({Joke? joke, bool? isLoading}) {
-    return JokeState(
-      joke: joke ?? this.joke,
-      isLoading: isLoading ?? this.isLoading,
-    );
-  }
+@freezed
+class JokeState with _$JokeState {
+  const factory JokeState({
+    Joke? joke,
+    @Default(false) bool isLoading,
+  }) = _JokeState;
 }
 
 class JokeNotifier extends Notifier<JokeState> {
@@ -21,7 +18,7 @@ class JokeNotifier extends Notifier<JokeState> {
 
   @override
   JokeState build() {
-    return JokeState();
+    return const JokeState();
   }
 
   Future<void> getJoke() async {
@@ -30,8 +27,11 @@ class JokeNotifier extends Notifier<JokeState> {
       final fetchedJoke = await _service.fetchJoke();
       state = state.copyWith(joke: fetchedJoke, isLoading: false);
     } catch (e) {
+      // Print the actual error to the console for debugging
+      print('Error fetching joke: $e'); 
+      
       state = state.copyWith(
-        joke: Joke(id: '0', type: 'error', setup: 'Failed to Load Joke', punchline: ''),
+        joke: const Joke(id: '0', type: 'error', setup: 'Failed to Load Joke', punchline: ''),
         isLoading: false,
       );
     }
