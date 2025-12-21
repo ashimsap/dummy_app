@@ -1,6 +1,6 @@
-import 'package:dummy_app/authWrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'home_page.dart';
 
 void main() {
   runApp(ProviderScope(child:MyApp()));
@@ -16,7 +16,7 @@ class MyApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue,
       ),
-      home: AuthWrapper(),
+      home: HomePage(),
     );
   }
 }
