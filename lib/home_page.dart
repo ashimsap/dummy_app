@@ -1,82 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'weather_provider.dart';
+import 'joke_provider.dart';
 
-class HomePage extends ConsumerStatefulWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
   @override
-  ConsumerState<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends ConsumerState<HomePage> {
-  final TextEditingController _controller = TextEditingController();
-  String _city = 'London';
-
-  @override
-  Widget build(BuildContext context) {
-    final weatherAsyncValue = ref.watch(weatherProvider(_city));
+  Widget build(BuildContext context, WidgetRef ref) {
+    final jokeState = ref.watch(jokeProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Weather App'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: _controller,
-              decoration: InputDecoration(
-                labelText: 'Enter City Name',
-                suffixIcon: IconButton(
-                  icon: const Icon(Icons.search),
-                  onPressed: () {
-                    if (_controller.text.isNotEmpty) {
-                      setState(() {
-                        _city = _controller.text;
-                      });
-                    }
-                  },
+      appBar: AppBar(title: const Text("Joke App")),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (jokeState.isLoading)
+                const CircularProgressIndicator()
+              else if (jokeState.joke != null) ...[
+                Text(
+                  jokeState.joke!.setup,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
+                const SizedBox(height: 10),
+                Text(
+                  jokeState.joke!.punchline,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontSize: 18),
+                ),
+              ] else
+                const Text("Press the button to get a joke!"),
+
+              const SizedBox(height: 30),
+
+              ElevatedButton(
+                onPressed: () {
+                  ref.read(jokeProvider.notifier).getJoke();
+                },
+                child: const Text('Get Joke'),
               ),
-              onSubmitted: (value) {
-                if (value.isNotEmpty) {
-                  setState(() {
-                    _city = value;
-                  });
-                }
-              },
-            ),
-            const SizedBox(height: 20),
-            weatherAsyncValue.when(
-              data: (weather) => Column(
-                children: [
-                  Text(
-                    weather.cityName,
-                    style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    '${weather.temperature}°C',
-                    style: const TextStyle(fontSize: 24),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    weather.description,
-                    style: const TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
-                  ),
-                  const SizedBox(height: 10),
-                  Image.network(
-                    'https://openweathermap.org/img/w/${weather.icon}.png',
-                    scale: 0.5,
-                  ),
-                ],
-              ),
-              loading: () => const CircularProgressIndicator(),
-              error: (err, stack) => Text('Error: $err'),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
