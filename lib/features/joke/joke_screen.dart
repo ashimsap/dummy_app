@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../joke_provider.dart';
+import '../../providers/all_providers.dart';
 
 class JokeScreen extends ConsumerWidget {
   const JokeScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final jokeState = ref.watch(jokeProvider);
+    final jokeAsyncValue = ref.watch(jokeProvider);
 
     return Center(
       child: Padding(
@@ -15,30 +15,29 @@ class JokeScreen extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (jokeState.isLoading)
-              const CircularProgressIndicator()
-            else if (jokeState.joke != null) ...[
-              Text(
-                jokeState.joke!.setup,
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            jokeAsyncValue.when(
+              data: (joke) => Column(
+                children: [
+                  Text(
+                    joke.setup,
+                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    joke.punchline,
+                    style: const TextStyle(fontSize: 18),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
-              const SizedBox(height: 10),
-              Text(
-                jokeState.joke!.punchline,
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 18),
-              ),
-            ] else
-              const Text("Press the button to get a joke!"),
-
-            const SizedBox(height: 30),
-
+              loading: () => const CircularProgressIndicator(),
+              error: (err, stack) => Text('Error: $err'),
+            ),
+            const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
-                ref.read(jokeProvider.notifier).getJoke();
-              },
-              child: const Text('Get Joke'),
+              onPressed: () => ref.refresh(jokeProvider),
+              child: const Text('New Joke'),
             ),
           ],
         ),
