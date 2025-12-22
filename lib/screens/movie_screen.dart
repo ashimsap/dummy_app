@@ -2,17 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/all_providers.dart';
 
-class MovieScreen extends ConsumerWidget {
+class MovieScreen extends ConsumerStatefulWidget {
   const MovieScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<MovieScreen> createState() => _MovieScreenState();
+}
+
+class _MovieScreenState extends ConsumerState<MovieScreen> {
+  final SearchController _searchController = SearchController();
+
+  void _performSearch(String query) {
+    if (query.isNotEmpty) {
+      ref.read(movieQueryProvider.notifier).state = query;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final movieAsyncValue = ref.watch(movieProvider);
 
     return Scaffold(
       appBar: AppBar(
-        // The search bar is implemented as the title of the AppBar
         title: SearchAnchor(
+          searchController: _searchController,
           builder: (BuildContext context, SearchController controller) {
             return SearchBar(
               controller: controller,
@@ -21,21 +34,23 @@ class MovieScreen extends ConsumerWidget {
               onTap: () => controller.openView(),
               onChanged: (_) => controller.openView(),
               leading: const Icon(Icons.search),
+              // This handles submission directly from the SearchBar
+              onSubmitted: _performSearch, 
             );
           },
           suggestionsBuilder: (BuildContext context, SearchController controller) {
-            // For this example, we'll keep suggestions simple
-            return <Widget>[
-              ListTile(title: const Text('Inception'), onTap: () => controller.text = 'Inception'),
-              ListTile(title: const Text('The Dark Knight'), onTap: () => controller.text = 'The Dark Knight'),
-              ListTile(title: const Text('Interstellar'), onTap: () => controller.text = 'Interstellar'),
-            ];
-          },
-          // This is what happens when the user submits the search
-          viewOnSubmitted: (String value) {
-            if (value.isNotEmpty) {
-              ref.read(movieQueryProvider.notifier).state = value;
-            }
+            // Sample suggestions
+            final suggestions = ['Inception', 'The Dark Knight', 'Interstellar'];
+            return suggestions.map((item) {
+              return ListTile(
+                title: Text(item),
+                onTap: () {
+                  // Set the search text and close the view, which triggers the search
+                  controller.closeView(item);
+                  _performSearch(item);
+                },
+              );
+            }).toList();
           },
         ),
       ),
