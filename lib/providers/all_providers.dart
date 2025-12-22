@@ -22,7 +22,7 @@ final currencyProvider = FutureProvider<CurrencyData>((ref) async {
 
 // Movie Provider
 final movieServiceProvider = Provider((ref) => MovieService());
-final movieQueryProvider = StateProvider<String>((ref) => 'Inception');
+final movieQueryProvider = StateProvider<String>((ref) => 'Game of thrones');
 final movieProvider = FutureProvider<Movie>((ref) async {
   final query = ref.watch(movieQueryProvider);
   return ref.watch(movieServiceProvider).fetchMovie(query);
