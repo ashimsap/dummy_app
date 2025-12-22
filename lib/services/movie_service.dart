@@ -19,24 +19,4 @@ class MovieService {
       throw Exception('Failed to load movie');
     }
   }
-
-  // Searches for a list of movies matching a query
-  Future<List<Movie>> searchMovies(String query) async {
-    final response = await http.get(Uri.parse('https://www.omdbapi.com/?s=$query&apikey=$apiKey'));
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      if (data['Response'] == 'True') {
-        final List<dynamic> searchResults = data['Search'];
-        return searchResults.map((json) => Movie.fromJson(json)).toList();
-      } else {
-        // OMDb returns an error if less than 3 characters are provided, which we can ignore
-        if(data['Error'] == 'Too many results.' || data['Error'] == 'Movie not found!'){
-            return [];
-        }
-        throw Exception(data['Error'] ?? 'Search failed');
-      }
-    } else {
-      throw Exception('Failed to connect to the service');
-    }
-  }
 }

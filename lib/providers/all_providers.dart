@@ -26,7 +26,7 @@ final currencyProvider = FutureProvider<CurrencyData>((ref) async {
 final movieServiceProvider = Provider((ref) => MovieService());
 
 // Manages the title for the main movie display
-final movieQueryProvider = StateProvider<String>((ref) => 'Inception');
+final movieQueryProvider = StateProvider<String>((ref) => 'Avatar: Fire and Ash');
 
 // Fetches the single, detailed movie to display on the screen
 final movieProvider = FutureProvider<Movie>((ref) async {
