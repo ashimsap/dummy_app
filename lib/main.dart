@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'home_page.dart';
+import 'screens/main_screen.dart'; // Import the new main screen
 
 void main() {
-  runApp(ProviderScope(child:MyApp()));
+  runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends ConsumerWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.blue,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      home: const MainScreen(), // Use MainScreen as the home
     );
   }
 }

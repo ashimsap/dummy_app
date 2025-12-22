@@ -20,13 +20,13 @@ class QuoteScreen extends ConsumerWidget {
                 children: [
                   Text(
                     '"${quote.content}"',
-                    style: const TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
+                    style: const TextStyle(fontSize: 20, ),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 10),
                   Text(
                     '- ${quote.author}',
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
                   ),
                 ],
               ),

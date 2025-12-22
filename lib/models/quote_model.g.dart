@@ -6,10 +6,8 @@ part of 'quote_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$QuoteImpl _$$QuoteImplFromJson(Map<String, dynamic> json) => _$QuoteImpl(
-  content: json['content'] as String,
-  author: json['author'] as String,
-);
+_$QuoteImpl _$$QuoteImplFromJson(Map<String, dynamic> json) =>
+    _$QuoteImpl(content: json['q'] as String, author: json['a'] as String);
 
 Map<String, dynamic> _$$QuoteImplToJson(_$QuoteImpl instance) =>
-    <String, dynamic>{'content': instance.content, 'author': instance.author};
+    <String, dynamic>{'q': instance.content, 'a': instance.author};

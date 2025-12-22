@@ -6,8 +6,8 @@ part 'quote_model.g.dart';
 @freezed
 class Quote with _$Quote {
   const factory Quote({
-    required String content,
-    required String author,
+    @JsonKey(name: 'q') required String content,
+    @JsonKey(name: 'a') required String author,
   }) = _Quote;
 
   factory Quote.fromJson(Map<String, dynamic> json) => _$QuoteFromJson(json);

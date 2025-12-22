@@ -21,7 +21,9 @@ Quote _$QuoteFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Quote {
+  @JsonKey(name: 'q')
   String get content => throw _privateConstructorUsedError;
+  @JsonKey(name: 'a')
   String get author => throw _privateConstructorUsedError;
 
   /// Serializes this Quote to a JSON map.
@@ -38,7 +40,10 @@ abstract class $QuoteCopyWith<$Res> {
   factory $QuoteCopyWith(Quote value, $Res Function(Quote) then) =
       _$QuoteCopyWithImpl<$Res, Quote>;
   @useResult
-  $Res call({String content, String author});
+  $Res call({
+    @JsonKey(name: 'q') String content,
+    @JsonKey(name: 'a') String author,
+  });
 }
 
 /// @nodoc
@@ -80,7 +85,10 @@ abstract class _$$QuoteImplCopyWith<$Res> implements $QuoteCopyWith<$Res> {
   ) = __$$QuoteImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String content, String author});
+  $Res call({
+    @JsonKey(name: 'q') String content,
+    @JsonKey(name: 'a') String author,
+  });
 }
 
 /// @nodoc
@@ -115,14 +123,19 @@ class __$$QuoteImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$QuoteImpl implements _Quote {
-  const _$QuoteImpl({required this.content, required this.author});
+  const _$QuoteImpl({
+    @JsonKey(name: 'q') required this.content,
+    @JsonKey(name: 'a') required this.author,
+  });
 
   factory _$QuoteImpl.fromJson(Map<String, dynamic> json) =>
       _$$QuoteImplFromJson(json);
 
   @override
+  @JsonKey(name: 'q')
   final String content;
   @override
+  @JsonKey(name: 'a')
   final String author;
 
   @override
@@ -159,15 +172,17 @@ class _$QuoteImpl implements _Quote {
 
 abstract class _Quote implements Quote {
   const factory _Quote({
-    required final String content,
-    required final String author,
+    @JsonKey(name: 'q') required final String content,
+    @JsonKey(name: 'a') required final String author,
   }) = _$QuoteImpl;
 
   factory _Quote.fromJson(Map<String, dynamic> json) = _$QuoteImpl.fromJson;
 
   @override
+  @JsonKey(name: 'q')
   String get content;
   @override
+  @JsonKey(name: 'a')
   String get author;
 
   /// Create a copy of Quote
