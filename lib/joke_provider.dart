@@ -27,9 +27,6 @@ class JokeNotifier extends Notifier<JokeState> {
       final fetchedJoke = await _service.fetchJoke();
       state = state.copyWith(joke: fetchedJoke, isLoading: false);
     } catch (e) {
-      // Print the actual error to the console for debugging
-      print('Error fetching joke: $e'); 
-      
       state = state.copyWith(
         joke: const Joke(id: '0', type: 'error', setup: 'Failed to Load Joke', punchline: ''),
         isLoading: false,
