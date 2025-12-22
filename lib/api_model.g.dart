@@ -7,11 +7,11 @@ part of 'api_model.dart';
 // **************************************************************************
 
 _$JokeImpl _$$JokeImplFromJson(Map<String, dynamic> json) => _$JokeImpl(
-      type: json['type'] as String,
-      setup: json['setup'] as String,
-      punchline: json['punchline'] as String,
-      id: _idToString(json['id']),
-    );
+  type: json['type'] as String,
+  setup: json['setup'] as String,
+  punchline: json['punchline'] as String,
+  id: _idToString(json['id']),
+);
 
 Map<String, dynamic> _$$JokeImplToJson(_$JokeImpl instance) =>
     <String, dynamic>{

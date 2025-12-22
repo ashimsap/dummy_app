@@ -23,7 +23,9 @@ Joke _$JokeFromJson(Map<String, dynamic> json) {
 mixin _$Joke {
   String get type => throw _privateConstructorUsedError;
   String get setup => throw _privateConstructorUsedError;
-  String get punchline => throw _privateConstructorUsedError;
+  String get punchline =>
+      throw _privateConstructorUsedError; // Add logic to handle both int and String for 'id'
+  @JsonKey(fromJson: _idToString)
   String get id => throw _privateConstructorUsedError;
 
   /// Serializes this Joke to a JSON map.
@@ -40,7 +42,12 @@ abstract class $JokeCopyWith<$Res> {
   factory $JokeCopyWith(Joke value, $Res Function(Joke) then) =
       _$JokeCopyWithImpl<$Res, Joke>;
   @useResult
-  $Res call({String type, String setup, String punchline, String id});
+  $Res call({
+    String type,
+    String setup,
+    String punchline,
+    @JsonKey(fromJson: _idToString) String id,
+  });
 }
 
 /// @nodoc
@@ -95,7 +102,12 @@ abstract class _$$JokeImplCopyWith<$Res> implements $JokeCopyWith<$Res> {
   ) = __$$JokeImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String type, String setup, String punchline, String id});
+  $Res call({
+    String type,
+    String setup,
+    String punchline,
+    @JsonKey(fromJson: _idToString) String id,
+  });
 }
 
 /// @nodoc
@@ -145,7 +157,7 @@ class _$JokeImpl implements _Joke {
     required this.type,
     required this.setup,
     required this.punchline,
-    required this.id,
+    @JsonKey(fromJson: _idToString) required this.id,
   });
 
   factory _$JokeImpl.fromJson(Map<String, dynamic> json) =>
@@ -157,7 +169,9 @@ class _$JokeImpl implements _Joke {
   final String setup;
   @override
   final String punchline;
+  // Add logic to handle both int and String for 'id'
   @override
+  @JsonKey(fromJson: _idToString)
   final String id;
 
   @override
@@ -200,7 +214,7 @@ abstract class _Joke implements Joke {
     required final String type,
     required final String setup,
     required final String punchline,
-    required final String id,
+    @JsonKey(fromJson: _idToString) required final String id,
   }) = _$JokeImpl;
 
   factory _Joke.fromJson(Map<String, dynamic> json) = _$JokeImpl.fromJson;
@@ -210,8 +224,9 @@ abstract class _Joke implements Joke {
   @override
   String get setup;
   @override
-  String get punchline;
+  String get punchline; // Add logic to handle both int and String for 'id'
   @override
+  @JsonKey(fromJson: _idToString)
   String get id;
 
   /// Create a copy of Joke
