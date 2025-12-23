@@ -15,7 +15,6 @@ class MovieScreen extends ConsumerWidget {
       }
     }
 
-
     return Scaffold(
       body: SafeArea(
         child: Padding(
