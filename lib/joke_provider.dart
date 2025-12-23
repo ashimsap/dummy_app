@@ -34,5 +34,4 @@ class JokeNotifier extends Notifier<JokeState> {
     }
   }
 }
-
 final jokeProvider = NotifierProvider<JokeNotifier, JokeState>(JokeNotifier.new);
