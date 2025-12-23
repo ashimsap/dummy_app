@@ -25,7 +25,7 @@ class MovieScreen extends ConsumerWidget {
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: SearchBar(
                   hintText: 'Search for a movie...',
-                  padding: MaterialStateProperty.all<EdgeInsets>(
+                  padding: WidgetStateProperty.all<EdgeInsets>(
                       const EdgeInsets.symmetric(horizontal: 16.0)),
                   onSubmitted: (value) {
                     performSearch(value);
