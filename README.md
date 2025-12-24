@@ -25,7 +25,6 @@ The application is composed of five distinct modules, navigable via a bottom nav
     *   Custom error and loading states handled gracefully via Riverpod's `AsyncValue`.
 
 ## Getting Started
-
 ### Prerequisites
 
 *   Flutter SDK (Latest Stable)
