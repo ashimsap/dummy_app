@@ -9,6 +9,7 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final jokeState = ref.watch(jokeProvider);
 
+
     return Scaffold(
       appBar: AppBar(title: const Text("Joke App")),
       body: Center(
