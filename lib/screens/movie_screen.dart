@@ -25,7 +25,7 @@ class MovieScreen extends ConsumerWidget {
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: SearchBar(
                   hintText: 'Search for a movie...',
-                  padding: WidgetStateProperty.all<EdgeInsets>(
+                  padding: MaterialStateProperty.all<EdgeInsets>(
                       const EdgeInsets.symmetric(horizontal: 16.0)),
                   onSubmitted: (value) {
                     performSearch(value);
@@ -35,30 +35,32 @@ class MovieScreen extends ConsumerWidget {
               ),
               Expanded(
                 child: movieAsyncValue.when(
-                  data: (movie) => SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        if (movie.poster.isNotEmpty && movie.poster != 'N/A')
-                          Image.network(movie.poster,
-                              height: 300,
-                              errorBuilder: (c, e, s) =>
-                                  const Icon(Icons.movie, size: 100))
-                        else
-                          const Icon(Icons.movie, size: 100),
-                        const SizedBox(height: 10),
-                        Text(movie.title,
-                            style: const TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center),
-                        Text('(${movie.year})',
-                            style: const TextStyle(
-                                fontSize: 18, color: Colors.grey)),
-                        const SizedBox(height: 10),
-                        if (movie.plot != null)
-                          Text(movie.plot!,
-                              style: const TextStyle(fontSize: 16),
+                  data: (movie) => Center(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          if (movie.poster.isNotEmpty && movie.poster != 'N/A')
+                            Image.network(movie.poster,
+                                height: 300,
+                                errorBuilder: (c, e, s) =>
+                                    const Icon(Icons.movie, size: 100))
+                          else
+                            const Icon(Icons.movie, size: 100),
+                          const SizedBox(height: 10),
+                          Text(movie.title,
+                              style: const TextStyle(
+                                  fontSize: 24, fontWeight: FontWeight.bold),
                               textAlign: TextAlign.center),
-                      ],
+                          Text('(${movie.year})',
+                              style: const TextStyle(
+                                  fontSize: 18, color: Colors.grey)),
+                          const SizedBox(height: 10),
+                          if (movie.plot != null)
+                            Text(movie.plot!,
+                                style: const TextStyle(fontSize: 16),
+                                textAlign: TextAlign.center),
+                        ],
+                      ),
                     ),
                   ),
                   loading: () => const Center(child: CircularProgressIndicator()),
@@ -72,4 +74,3 @@ class MovieScreen extends ConsumerWidget {
     );
   }
 }
-
