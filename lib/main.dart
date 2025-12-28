@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'screens/main_screen.dart'; // Import the new main screen
+import 'package:flutter_dotenv/flutter_dotenv.dart'; // Import dotenv
+import 'screens/main_screen.dart';
 
-void main() {
+Future<void> main() async {
+  await dotenv.load(fileName: ".env"); // Load environment variables
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MainScreen(), // Use MainScreen as the home
+      home: const MainScreen(),
     );
   }
 }
