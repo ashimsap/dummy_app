@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'joke_screen.dart'; // Updated import path
 import 'quote_screen.dart';
 import 'currency_screen.dart';
 import 'movie_screen.dart';
 import 'fact_screen.dart';
-import '../features/joke/joke_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
