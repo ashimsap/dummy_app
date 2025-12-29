@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'quote_screen.dart';
 import 'currency_screen.dart';
 import 'movie_screen.dart';
@@ -40,6 +41,11 @@ class _MainScreenState extends State<MainScreen> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        selectedItemColor: Colors.amber[800],
+        unselectedItemColor: Colors.grey,
+        type: BottomNavigationBarType.fixed, // Better for 4+ items
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.mood),
@@ -62,10 +68,6 @@ class _MainScreenState extends State<MainScreen> {
             label: 'Fact',
           ),
         ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        unselectedItemColor: Colors.grey,
-        onTap: _onItemTapped,
       ),
     );
   }
