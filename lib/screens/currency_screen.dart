@@ -12,7 +12,6 @@ class CurrencyScreen extends ConsumerWidget {
     return Center(
       child: currencyAsyncValue.when(
         data: (currency) {
-           // Safely accessing values
            final usdToEur = currency.rates['EUR']?.toStringAsFixed(2) ?? 'N/A';
            final usdToGbp = currency.rates['GBP']?.toStringAsFixed(2) ?? 'N/A';
            final usdToJpy = currency.rates['JPY']?.toStringAsFixed(2) ?? 'N/A';
