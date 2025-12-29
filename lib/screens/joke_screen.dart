@@ -8,8 +8,6 @@ class JokeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final jokeAsyncValue = ref.watch(jokeProvider);
-
-
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
