@@ -1,14 +1,15 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 import '../models/joke_model.dart';
 
 class JokeService {
+  final Dio _dio = Dio();
+
   Future<Joke> fetchJoke() async {
-    final response = await http.get(Uri.parse('https://official-joke-api.appspot.com/random_joke'));
-    if (response.statusCode == 200) {
-      return Joke.fromJson(json.decode(response.body));
-    } else {
-      throw Exception('Failed to load joke');
+    try {
+      final response = await _dio.get('https://official-joke-api.appspot.com/random_joke');
+      return Joke.fromJson(response.data);
+    } on DioException catch (e) {
+      throw Exception('Failed to load joke: ${e.message}');
     }
   }
 }

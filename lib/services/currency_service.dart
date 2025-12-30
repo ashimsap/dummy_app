@@ -1,15 +1,15 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 import '../models/currency_model.dart';
 
 class CurrencyService {
+  final Dio _dio = Dio();
+
   Future<CurrencyData> fetchCurrency() async {
-    // Using a free API that doesn't require auth for basic rates, or replace with your preferred one
-    final response = await http.get(Uri.parse('https://api.exchangerate-api.com/v4/latest/USD'));
-    if (response.statusCode == 200) {
-      return CurrencyData.fromJson(json.decode(response.body));
-    } else {
-      throw Exception('Failed to load currency');
+    try {
+      final response = await _dio.get('https://api.exchangerate-api.com/v4/latest/USD');
+      return CurrencyData.fromJson(response.data);
+    } on DioException catch (e) {
+      throw Exception('Failed to load currency: ${e.message}');
     }
   }
 }

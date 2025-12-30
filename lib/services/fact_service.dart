@@ -1,14 +1,15 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 import '../models/fact_model.dart';
 
 class FactService {
+  final Dio _dio = Dio();
+
   Future<Fact> fetchFact() async {
-    final response = await http.get(Uri.parse('https://uselessfacts.jsph.pl/api/v2/facts/random'));
-    if (response.statusCode == 200) {
-      return Fact.fromJson(json.decode(response.body));
-    } else {
-      throw Exception('Failed to load fact');
+    try {
+      final response = await _dio.get('https://uselessfacts.jsph.pl/api/v2/facts/random');
+      return Fact.fromJson(response.data);
+    } on DioException catch (e) {
+      throw Exception('Failed to load fact: ${e.message}');
     }
   }
 }
