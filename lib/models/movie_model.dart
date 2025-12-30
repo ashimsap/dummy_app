@@ -9,8 +9,13 @@ class Movie with _$Movie {
     @JsonKey(name: 'Title') required String title,
     @JsonKey(name: 'Year') required String year,
     @JsonKey(name: 'Poster') required String poster,
-    // Make Plot nullable and default to an empty string or handle it gracefully
     @JsonKey(name: 'Plot') String? plot,
+    @JsonKey(name: 'Rated') String? rated,
+    @JsonKey(name: 'Runtime') String? runtime,
+    @JsonKey(name: 'Genre') String? genre,
+    @JsonKey(name: 'Director') String? director,
+    @JsonKey(name: 'Actors') String? actors,
+    @JsonKey(name: 'imdbRating') String? imdbRating,
   }) = _Movie;
 
   factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);

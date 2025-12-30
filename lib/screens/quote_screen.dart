@@ -16,27 +16,53 @@ class QuoteScreen extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             quoteAsyncValue.when(
-              data: (quote) => Column(
-                children: [
-                  Text(
-                    '"${quote.content}"',
-                    style: const TextStyle(fontSize: 20, ),
-                    textAlign: TextAlign.center,
+              data: (quote) => Card(
+                color: Theme.of(context).colorScheme.primaryContainer,
+                child: Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min, // Ensures card shrinks to fit content
+                    children: [
+                      Icon(Icons.format_quote, size: 48, color: Theme.of(context).colorScheme.onPrimaryContainer.withOpacity(0.5)),
+                      const SizedBox(height: 16),
+                      Text(
+                        '"${quote.content}"',
+                        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                              fontStyle: FontStyle.italic,
+                              color: Theme.of(context).colorScheme.onPrimaryContainer,
+                            ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 24),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          '- ${quote.author}',
+                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.onPrimaryContainer,
+                              ),
+                          textAlign: TextAlign.right,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 10),
-                  Text(
-                    '- ${quote.author}',
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
-                  ),
-                ],
+                ),
               ),
               loading: () => const CircularProgressIndicator(),
-              error: (err, stack) => Text('Error: $err'),
+              error: (err, stack) => Card(
+                color: Theme.of(context).colorScheme.errorContainer,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text('Error: $err', style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer)),
+                ),
+              ),
             ),
-            const SizedBox(height: 20),
-            ElevatedButton(
+            const SizedBox(height: 32),
+            FilledButton.icon(
               onPressed: () => ref.refresh(quoteProvider),
-              child: const Text('New Quote'),
+              icon: const Icon(Icons.refresh),
+              label: const Text('New Quote'),
             ),
           ],
         ),
